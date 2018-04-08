@@ -296,12 +296,11 @@ body {
 header {
     background-color:  #000000;
     color: #ffffff;
-    grid-column: 1-3;
     display: grid;
     grid-template-columns: 5fr 3fr 1fr;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-template-rows: repeat(1fr);
+    grid-column: 1/3;
+    align-items: center;
+    grid-gap: 5px;
 }
 header > * {
     grid-row-start: 2;
@@ -319,6 +318,13 @@ header a:hover{
 header a {
     text-decoration: none;
     color: inherit;
+}
+header input[type=search]{
+    outline: none;
+    border-radius: 10px;
+}
+header .icons {
+    font-size: 0.9em;
 }
 #content {
     margin: 10px 10px;
