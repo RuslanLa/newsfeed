@@ -289,3 +289,46 @@ textarea {
         page-break-after: avoid;
     }
 }
+
+body {
+    font-family: "Times New Roman", Times, serif;
+}
+header {
+    background-color:  #000000;
+    color: #ffffff;
+    grid-column: 1-3;
+    display: grid;
+    grid-template-columns: 5fr 3fr 1fr;
+}
+header .title {
+    text-align: center;
+    font-size: 2em;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 #ffffff;
+}
+
+header a:hover{
+    text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
+}
+header a {
+    text-decoration: none;
+    color: inherit;
+}
+#content {
+    margin: 10px 10px;
+    display: grid;
+    /* grid-template-columns: 30% 70%; */
+    grid-template-columns: 2fr 5fr;
+    height: 100vh;
+    grid-gap: 5px;
+}
+
+#content aside {
+    border: 2px solid black;
+}
+#content nav {
+    border: 2px solid black;
+}
+#content section {
+    border: 2px solid black;
+}
