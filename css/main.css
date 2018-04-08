@@ -301,6 +301,10 @@ header {
     grid-template-columns: 5fr 3fr 1fr;
     grid-column-start: 1;
     grid-column-end: 3;
+    grid-template-rows: repeat(1fr);
+}
+header > * {
+    grid-row-start: 2;
 }
 header .title {
     text-align: center;
@@ -323,7 +327,7 @@ header a {
     grid-template-columns: 1fr 5fr;
     height: 100vh;
     grid-gap: 5px;
-    grid-template-rows: 0.5fr 3fr 2fr 0.5fr;
+    grid-template-rows: 0.5fr 0.5fr 1fr 4fr 0.5fr;
 }
 
 #content aside {
@@ -333,10 +337,40 @@ header a {
 #content nav {
     border: 2px solid black;
     grid-column-start: 1;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 20px;
 }
 #content section {
     border: 2px solid black;
-    grid-column-start: 2;
-    grid-row-start: 2;
-    grid-row-end: 4;
+    grid-column: 2/4;
+    grid-row: 2/5;
+}
+#content footer {
+    grid-column: 1/4;
+}
+nav{
+    background-color: black;
+}
+nav a{
+    text-decoration: none;
+    color: white;
+}
+nav a:hover{
+    text-decoration: underline;
+}
+nav ul {
+    list-style: none;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    border-top-right-radius: 300px;
+}
+nav ul li {
+    flex-grow: 1;
+    text-align: center;
+}
+nav ul li:hover{
+    box-shadow: 0.5px 0.5px 8px white;
 }
