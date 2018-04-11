@@ -97,22 +97,6 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ==========================================================================
    Helper classes
    ========================================================================== */
@@ -145,7 +129,8 @@ textarea {
     padding: 0;
     position: absolute;
     width: 1px;
-    white-space: nowrap; /* 1 */
+    white-space: nowrap;
+    /* 1 */
 }
 
 /*
@@ -189,8 +174,10 @@ textarea {
 
 .clearfix:before,
 .clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+    content: " ";
+    /* 1 */
+    display: table;
+    /* 2 */
 }
 
 .clearfix:after {
@@ -208,9 +195,9 @@ textarea {
 }
 
 @media print,
-       (-webkit-min-device-pixel-ratio: 1.25),
-       (min-resolution: 1.25dppx),
-       (min-resolution: 120dpi) {
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 1.25dppx),
+(min-resolution: 120dpi) {
     /* Style adjustments for high resolution devices */
 }
 
@@ -225,35 +212,30 @@ textarea {
     *:before,
     *:after {
         background: transparent !important;
-        color: #000 !important; /* Black prints faster:
+        color: #000 !important;
+        /* Black prints faster:
                                    http://www.sanbeiji.com/archives/953 */
         box-shadow: none !important;
         text-shadow: none !important;
     }
-
     a,
     a:visited {
         text-decoration: underline;
     }
-
     a[href]:after {
         content: " (" attr(href) ")";
     }
-
     abbr[title]:after {
         content: " (" attr(title) ")";
     }
-
     /*
      * Don't show links that are fragment identifiers,
      * or use the `javascript:` pseudo protocol
      */
-
     a[href^="#"]:after,
     a[href^="javascript:"]:after {
         content: "";
     }
-
     pre {
         white-space: pre-wrap !important;
     }
@@ -262,28 +244,23 @@ textarea {
         border: 1px solid #999;
         page-break-inside: avoid;
     }
-
     /*
      * Printing Tables:
      * http://css-discuss.incutio.com/wiki/Printing_Tables
      */
-
     thead {
         display: table-header-group;
     }
-
     tr,
     img {
         page-break-inside: avoid;
     }
-
     p,
     h2,
     h3 {
         orphans: 3;
         widows: 3;
     }
-
     h2,
     h3 {
         page-break-after: avoid;
@@ -292,78 +269,125 @@ textarea {
 
 body {
     font-family: "Times New Roman", Times, serif;
+    --main-color: #45887e;
+    --font-color: #ffffff;
 }
+
 header {
-    background-color:  #000000;
-    color: #ffffff;
+    background-color: var(--main-color);
+    color: var(--font-color);
     display: grid;
     grid-template-columns: 5fr 3fr 1fr;
     grid-column: 1/3;
     align-items: center;
     grid-gap: 5px;
 }
-header > * {
+
+header>* {
     grid-row-start: 2;
 }
+
 header .title {
     text-align: center;
     font-size: 2em;
     text-transform: uppercase;
-    text-shadow: 1px 1px 0 #ffffff;
+    text-shadow: 1px 1px 0 var(--font-color);
 }
 
-header a:hover{
-    text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
+header a:hover {
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
 }
+
 header a {
     text-decoration: none;
     color: inherit;
 }
-header input[type=search]{
+
+header input[type=search] {
     outline: none;
     border-radius: 10px;
+    min-width: 0px;
 }
+
 header .icons {
     font-size: 0.9em;
 }
+
 #content {
     margin: 10px 10px;
     display: grid;
     /* grid-template-columns: 30% 70%; */
     grid-template-columns: 1fr 5fr;
-    height: 100vh;
-    grid-gap: 5px;
+    height: 100%;
+    grid-row-gap: 5px;
+    grid-column-gap: 15px;
     grid-template-rows: 0.5fr 0.5fr 1fr 4fr 0.5fr;
 }
 
 #content aside {
-    border: 2px solid black;
+    border: 2px solid var(--main-color);
     grid-column-start: 1;
 }
+
 #content nav {
-    border: 2px solid black;
+    border: 2px solid var(--main-color);
     grid-column-start: 1;
     border-top-right-radius: 50px;
     border-bottom-left-radius: 20px;
 }
+
 #content section {
-    border: 2px solid black;
     grid-column: 2/4;
     grid-row: 2/5;
+    box-sizing: border-box;
 }
+
+#content section .message{
+    border-bottom: 0.5px solid #e6ecf0;
+    min-height: 51px;
+    padding: 1em 1em 1em 0;
+    display: grid;
+    grid-template-columns:60px 8fr;
+    grid-template-rows: 1fr 1fr;
+    cursor: pointer;
+}
+#content section .message:hover{
+    background-color: #d6d6e8;
+}
+#content section .message .avatar{
+    grid-column: 1/2;
+    grid-row: 1/3;
+    min-width: 42px;
+}
+
+#content section .message time{
+    font-size: 0.8em;
+    font-style: italic;
+    grid-column: 2/3;
+}
+#content section .message .content{
+    font-weight: 600;
+    grid-column: 2/3;
+    grid-row: 2/4;
+}
+
 #content footer {
     grid-column: 1/4;
 }
-nav{
-    background-color: black;
+
+nav {
+    background-color: var(--main-color);
 }
-nav a{
+
+nav a {
     text-decoration: none;
-    color: white;
+    color: var(--font-color);
 }
-nav a:hover{
+
+nav a:hover {
     text-decoration: underline;
 }
+
 nav ul {
     list-style: none;
     padding: 0px;
@@ -373,10 +397,47 @@ nav ul {
     margin: 0;
     border-top-right-radius: 300px;
 }
+
 nav ul li {
     flex-grow: 1;
     text-align: center;
 }
-nav ul li:hover{
-    box-shadow: 0.5px 0.5px 8px white;
+
+nav ul li:hover {
+    box-shadow: 0.5px 0.5px 8px var(--font-color);
+}
+
+ul.socialicons {
+    list-style: none;
+    overflow: auto;
+}
+
+ul.socialicons li {
+    width: 32px;
+    height: 33px;
+    padding: 0 5px 0 0;
+    float: left;
+}
+
+ul.socialicons li a {
+    width: 32px;
+    height: 33px;
+    display: block;
+    background: url(../img/socialSprite.png) no-repeat;
+}
+
+ul.socialicons li a.twitterb {
+    background-position: 0 -658px;
+}
+
+ul.socialicons li a.twitterb:hover {
+    background-position: -38px -658px;
+}
+
+ul.socialicons li a.instagram {
+    background-position: 0 -731px;
+}
+
+ul.socialicons li a.instagram:hover {
+    background-position: -38px -731px;
 }
