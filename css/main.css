@@ -280,11 +280,8 @@ body {
 header {
     background-color: var(--main-color);
     color: var(--font-color);
-    display: grid;
-    grid-template-columns: 5fr 3fr 1fr;
-    grid-column: 1/3;
-    align-items: center;
-    grid-gap: 5px;
+    position: relative;
+    height: 146px;
 }
 
 header>* {
@@ -318,11 +315,15 @@ header input[type=search] {
     width: 50%;
     font-style: italic;
     color: #515154;
+    position: absolute;
+    left: 26%;
+    top: 40px;
 }
 input[type=search]:focus {
-    width: 100%;
+    width: 98%;
     background-color: #f1ebeb;
     box-shadow: 1px 1px 6px #64ffff;
+    left: 1%;
 }
 
 header .icons {
@@ -331,13 +332,8 @@ header .icons {
 
 #content {
     margin: 10px 10px;
-    display: grid;
-    /* grid-template-columns: 30% 70%; */
-    grid-template-columns: 1fr 5fr;
     height: 100%;
-    grid-row-gap: 5px;
-    grid-column-gap: 15px;
-    grid-template-rows: 0.5fr 0.5fr 1fr 4fr 0.5fr;
+    min-width: 270px;
 }
 
 #content aside {
@@ -346,7 +342,16 @@ header .icons {
     background-color: #674279;
     color: var(--font-color);
     opacity: .7;
-    border-radius: 0px 127px 50px 146px;
+    display: flex;
+}
+#content aside > * {
+    flex: 1 1;
+}
+#content aside p.name {
+    max-width: calc(100% - 60px);
+    word-break: break-all;
+    margin-right: auto;
+    flex-grow: 2;
 }
 #content aside p{
     text-align: center;
@@ -355,8 +360,6 @@ header .icons {
 #content nav {
     border: 2px solid var(--main-color);
     grid-column-start: 1;
-    border-top-right-radius: 50px;
-    border-bottom-left-radius: 20px;
 }
 
 #content section {
@@ -370,9 +373,6 @@ header .icons {
     border-bottom: 0.5px solid #e6ecf0;
     min-height: 51px;
     padding: 1em 1em 1em 0;
-    display: grid;
-    grid-template-columns:60px 8fr;
-    grid-template-rows: 1fr 1fr;
     cursor: pointer;
 }
 #content section .message:hover{
@@ -417,11 +417,10 @@ nav a:hover {
 nav ul {
     list-style: none;
     padding: 0px;
-    display: flex;
-    flex-direction: column;
     height: 100%;
     margin: 0;
     border-top-right-radius: 300px;
+    display: flex;
 }
 
 nav ul li {
@@ -436,13 +435,17 @@ nav ul li:hover {
 ul.socialicons {
     list-style: none;
     overflow: auto;
+    position: absolute;
+    top: 60px;
+    left: 49%;
+    padding: 0;
 }
 
 ul.socialicons li {
     width: 32px;
     height: 33px;
-    padding: 0 5px 0 0;
-    float: left;
+    /* padding: 0 5px 0 0;
+    float: left; */
 }
 
 ul.socialicons li a {
@@ -464,6 +467,6 @@ ul.socialicons li a.instagram {
     background-position: 0 -731px;
 }
 
-ul.socialicons li a.instagram:hover {
+ul.socialicons li a.instagram:hovser {
     background-position: -38px -731px;
 }
