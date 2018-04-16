@@ -225,6 +225,9 @@ nav ul li {
 nav ul li:hover {
     box-shadow: 0.5px 0.5px 8px var(--font-color);
 }
+body {
+    box-sizing: border-box;
+}
 
 ul.socialicons {
     list-style: none;
