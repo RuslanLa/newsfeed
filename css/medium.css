@@ -6,7 +6,7 @@
             height: 100%;
             grid-row-gap: 5px;
             grid-column-gap: 15px;
-            grid-template-rows: 100px minmax(50px, 250px) minmax(50px, 150px) 4fr 50px;
+            grid-template-rows: 100px 220px minmax(50px, 150px) 4fr 50px;
         }
         #content aside {
             border-radius: 0px 127px 50px 146px;
