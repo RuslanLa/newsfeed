@@ -178,6 +178,7 @@ header .icons {
     min-width: 42px;
     border: 1px solid white;
     border-radius: 15px;
+    margin-bottom: 5px;
 }
 
 #content section .message time {
@@ -290,6 +291,8 @@ button.rnd-btn {
     background-color: var(--main-color);
     border: 1px solid var(--main-color);
     color: white;
+    padding: 10px 20px 10px 20px;
+    margin-top: 5px;
 }
 button.rnd-btn:disabled {
     opacity: 0.7;
