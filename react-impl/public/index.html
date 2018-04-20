@@ -1,40 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<!doctype html>
+<html class="no-js" lang="">
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  <!-- Place favicon.ico in the root directory -->
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+  <div id="content">
+    <header>
+      <div class="title">
+        <a href="#">The Newsfeed</a>
+      </div>
+      <input type="search" placeholder="Search" />
+      <ul class="icons socialicons">
+        <li>
+          <a class="twitterb" href="#"></a>
+        </li>
+        <li>
+          <a class="instagram" href="#"></a>
+        </li>
+      </ul>
+    </header>
+    <aside>
+      <p class="name">Ruslan Latypov</p>
+      <p class="messages-count">200</p>
+      <p class="followers">200</p>
+      <p class="follows">200</p>
+    </aside>
+    <nav>
+      <ul>
+        <li>
+          <a href="#">Profile</a>
+        </li>
+        <li>
+          <a href="#">Feed</a>
+        </li>
+        <li>
+          <a href="#">Logout</a>
+        </li>
+      </ul>
+    </nav>
+    <section>
+      <div class="message new-message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <textarea placeholder="Enter new message here"></textarea>
+        <button disabled class="send rnd-btn">Send</button>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+      <div class="message">
+        <img class="avatar" src="./img/avatar.jpg" />
+        <time>Today, 5 mins ago</time>
+        <div class="content">Hello world! How are you?</div>
+      </div>
+    </section>
+    <footer>
+      @All rights reserved
+    </footer>
+  </div>
+  <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
 </html>
