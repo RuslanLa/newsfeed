@@ -7,9 +7,9 @@ let str = ReasonReact.stringToElement;
 let make = _children => {
   ...component,
   render: _self =>
-    <div className="message new-message">
+    <div className="message">
       <img className="avatar" src=avatar />
-      <textarea placeholder="Enter new message here" />
-      <button className="send rnd-btn"> (str("Send")) </button>
+      <time> (str("Today, 5 mins ago")) </time>
+      <div className="content"> (str("Hello world! How are you?")) </div>
     </div>
 };

@@ -6,5 +6,6 @@ let component = ReasonReact.statelessComponent("App");
 
 let make = (~message, _children) => {
   ...component,
-  render: _self => <div> <Header /> <Aside /> <Navbar /> <Main /> </div>
+  render: _self =>
+    <div> <Header /> <Aside /> <Navbar /> <Main /> <Footer /> </div>
 };
