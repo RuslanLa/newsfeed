@@ -2,20 +2,20 @@ let component = ReasonReact.statelessComponent("Navbar");
 
 let str = ReasonReact.stringToElement;
 
-let make = (_children) => {
-    ...component,
-    render: (_self) => 
-    <nav>
-            <ul>
-                <li>
-                    <a href="#">(str("Profile"))</a>
-                </li>
-                <li>
-                    <a href="#">(str("Feed"))</a>
-                </li>
-                <li>
-                    <a href="#">(str("Logout"))</a>
-                </li>
-            </ul>
-    </nav>
+let make = (~items=?, _children) => {
+  ...component,
+  render: _self => {
+    let listElements =
+      ReasonReact.arrayToElement(
+        Array.map(
+          (i: Menuitem.menuItemType) =>
+            <li> <a href=i.href> (str(i.title)) </a> </li>,
+          switch items {
+          | Some(elements) => elements
+          | None => [||]
+          }
+        )
+      );
+    <nav> <ul> listElements </ul> </nav>;
+  }
 };
