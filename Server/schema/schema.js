@@ -1,6 +1,6 @@
 const graphql = require("graphql");
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
 const _ = require("lodash");
 
 const posts = [
@@ -25,7 +25,7 @@ const PostType = new GraphQLObjectType({
     name: "Post",
     fields: () => ({
         id: {
-            type: GraphQLString
+            type: GraphQLID
         },
         content: { type: GraphQLString },
         date: { type: GraphQLString }
@@ -38,7 +38,7 @@ const RootQuery = new GraphQLObjectType({
         post: {
             type: PostType,
             args: {
-                id: { type: GraphQLString }
+                id: { type: GraphQLID }
             },
             resolve(parent, args) {
                 return _.find(posts, { id: args.id });
