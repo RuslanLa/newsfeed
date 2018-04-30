@@ -20,6 +20,29 @@ const posts = [
         date: new Date().toDateString()
     }
 ];
+const users = [
+    {
+        name: "Vladimir Putin",
+        id: "1",
+        follows: [],
+        followers: [],
+        avatar: "putin"
+    },
+    {
+        name: "Ruslan Latypov",
+        id: "2",
+        follows: [],
+        followers: [],
+        avatar: "ruslan"
+    },
+    {
+        name: "Some person",
+        id: "3",
+        follows: [],
+        followers: [],
+        avatar: "person"
+    }
+];
 
 const PostType = new GraphQLObjectType({
     name: "Post",
@@ -29,6 +52,17 @@ const PostType = new GraphQLObjectType({
         },
         content: { type: GraphQLString },
         date: { type: GraphQLString }
+    })
+});
+
+const UserType = new GraphQLObjectType({
+    name: "User",
+    fields: () => ({
+        id: {
+            type: GraphQLID
+        },
+        name: { type: GraphQLString },
+        avatar: { type: GraphQLString }
     })
 });
 
@@ -42,6 +76,17 @@ const RootQuery = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 return _.find(posts, { id: args.id });
+            }
+        },
+        user: {
+            type: UserType,
+            args: {
+                id: {
+                    type: GraphQLID
+                }
+            },
+            resolve(parent, args) {
+                return _.find(users, { id: args.id });
             }
         }
     }
