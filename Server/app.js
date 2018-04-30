@@ -7,7 +7,8 @@ const schema = require("./schema/schema");
 app.use(
     "/graphql",
     graphqlHTPP({
-        schema
+        schema,
+        graphiql: true
     })
 );
 app.listen(4000, () => {
