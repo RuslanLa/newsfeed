@@ -1,0 +1,1 @@
+src/app.cmj : src/aside.cmj src/footer.cmj src/header.cmj src/main.cmj src/menuitem.cmj src/navbar.cmj src/user.cmj
