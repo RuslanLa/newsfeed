@@ -129,6 +129,12 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args) {
                 return _.find(users, { id: args.id });
             }
+        },
+        posts: {
+            type: new GraphQLList(PostType),
+            resolve(parent, args) {
+                return posts;
+            }
         }
     }
 });
