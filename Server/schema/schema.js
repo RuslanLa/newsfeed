@@ -1,22 +1,51 @@
 const graphql = require("graphql");
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
+const {
+    GraphQLObjectType,
+    GraphQLString,
+    GraphQLSchema,
+    GraphQLID,
+    GraphQLList
+} = graphql;
 const _ = require("lodash");
 
 const posts = [
     {
         id: "1",
+        authorId: "1",
         content: "Hello world! How are you doing",
         date: new Date().toDateString()
     },
     {
         id: "2",
+        authorId: "1",
         content: "Ho ho ho",
         date: new Date().toDateString()
     },
     {
         id: "3",
+        authorId: "2",
         content: "Just some info",
+        date: new Date().toDateString()
+    },
+    ,
+    {
+        id: "4",
+        authorId: "2",
+        content: "Just another info",
+        date: new Date().toDateString()
+    },
+    {
+        id: "5",
+        authorId: "2",
+        content: "Yooooo",
+        date: new Date().toDateString()
+    },
+    ,
+    {
+        id: "6",
+        authorId: "3",
+        content: "My name is !",
         date: new Date().toDateString()
     }
 ];
@@ -51,7 +80,13 @@ const PostType = new GraphQLObjectType({
             type: GraphQLID
         },
         content: { type: GraphQLString },
-        date: { type: GraphQLString }
+        date: { type: GraphQLString },
+        author: {
+            type: UserType,
+            resolve(parent, args) {
+                return _.find(users, { id: parent.authorId });
+            }
+        }
     })
 });
 
@@ -62,7 +97,13 @@ const UserType = new GraphQLObjectType({
             type: GraphQLID
         },
         name: { type: GraphQLString },
-        avatar: { type: GraphQLString }
+        avatar: { type: GraphQLString },
+        posts: {
+            type: new GraphQLList(PostType),
+            resolve(parent, args) {
+                return _.filter(posts, { authorId: parent.id });
+            }
+        }
     })
 });
 
