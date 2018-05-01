@@ -23,7 +23,7 @@ const PostType = new GraphQLObjectType({
         author: {
             type: UserType,
             resolve(parent, args) {
-                // return _.find(users, { id: parent.authorId });
+                return User.findById(parent.authorId);
             }
         }
     })
@@ -40,7 +40,7 @@ const UserType = new GraphQLObjectType({
         posts: {
             type: new GraphQLList(PostType),
             resolve(parent, args) {
-                // return _.filter(posts, { authorId: parent.id });
+                return Post.find({ authorId: parent.id });
             }
         }
     })
@@ -55,7 +55,7 @@ const RootQuery = new GraphQLObjectType({
                 id: { type: GraphQLID }
             },
             resolve(parent, args) {
-                // return _.find(posts, { id: args.id });
+                return Post.findById(args.id);
             }
         },
         user: {
@@ -66,19 +66,19 @@ const RootQuery = new GraphQLObjectType({
                 }
             },
             resolve(parent, args) {
-                // return _.find(users, { id: args.id });
+                return User.findById(args.id);
             }
         },
         posts: {
             type: new GraphQLList(PostType),
             resolve(parent, args) {
-                // return posts;
+                return Post.find();
             }
         },
         users: {
             type: new GraphQLList(UserType),
             resolve(parent, args) {
-                // return users;
+                return User.find();
             }
         }
     }
@@ -100,6 +100,21 @@ const Mutation = new GraphQLObjectType({
                 });
 
                 return user.save();
+            }
+        },
+        addPost: {
+            type: PostType,
+            args: {
+                content: { type: GraphQLString },
+                authorId: { type: GraphQLID }
+            },
+            resolve(parent, args) {
+                let post = new Post({
+                    content: args.content,
+                    authorId: args.authorId,
+                    date: new Date()
+                });
+                return post.save();
             }
         }
     }
