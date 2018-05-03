@@ -17,12 +17,25 @@ let make = (~message, _children) => {
       Menuitem.{title: "Feed", href: ""},
       Menuitem.{title: "Logout", href: ""}
     |];
-    <div>
-      <Header />
-      <Aside person />
-      <Navbar items=menu />
-      <Main />
-      <Footer />
-    </div>;
+    let postsQuery =
+      Postsrepo.GetPosts.make(~id="5ae859ee74654c100c675f5b", ());
+    <Postsrepo.GetPostsQuery variables=postsQuery##variables>
+      ...(
+           ({result}) =>
+             switch result {
+             | NoData => <div> (ReasonReact.stringToElement("No Data")) </div>
+             | Loading => <div> (ReasonReact.stringToElement("Loading")) </div>
+             | Error(error) => <div />
+             | Data(response) =>
+               <div>
+                 <Header />
+                 <Aside person />
+                 <Navbar items=menu />
+                 <Main />
+                 <Footer />
+               </div>
+             }
+         )
+    </Postsrepo.GetPostsQuery>;
   }
 };
