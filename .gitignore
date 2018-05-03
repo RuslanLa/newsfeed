@@ -1,2 +1,6 @@
 node_modules/
 Server/node_modules/
+.merlin
+*/.merlin
+*/node_modules/*
+*/lib/*

@@ -1,1 +1,0 @@
-src/newmessage.cmj : src/file.cmj
