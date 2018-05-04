@@ -28,11 +28,21 @@ let make = (~message, _children) => {
                    followsCount: 300,
                    followersCount: 400
                  };
+               let main =
+                 switch response##user##posts {
+                 | None =>
+                   <div> (ReasonReact.stringToElement("No Data")) </div>
+                 | Some(posts) =>
+                   <Main
+                     avatar=response##user##avatar
+                     posts=(Array.map(p => Post.fromJsObj(p), posts))
+                   />
+                 };
                <div>
                  <Header />
                  <Aside person />
                  <Navbar items=menu />
-                 <Main avatar=response##user##avatar />
+                 main
                  <Footer />
                </div>;
              }

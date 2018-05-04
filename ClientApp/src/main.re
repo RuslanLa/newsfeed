@@ -2,7 +2,7 @@ let component = ReasonReact.statelessComponent("Main");
 
 let str = ReasonReact.stringToElement;
 
-let make = (~avatar, _children) => {
+let make = (~avatar, ~posts, _children) => {
   ...component,
   render: _self => {
     let message =
@@ -14,10 +14,10 @@ let make = (~avatar, _children) => {
         }
       };
     let messages =
-      List.map(_i => <Message message />, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+      Array.map(i => <Message message=Post.{avatar, data: i} />, posts);
     <section>
       <Newmessage avatar=message.avatar />
-      (ReasonReact.arrayToElement(Array.of_list(messages)))
+      (ReasonReact.arrayToElement(messages))
     </section>;
   }
 };
