@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+
 const chalk = require("chalk");
 const graphqlHTPP = require("express-graphql");
 const schema = require("./schema/schema");
@@ -9,6 +11,7 @@ mongoose.connect("mongodb://ruslan:test123@ds163119.mlab.com:63119/newsfeed");
 mongoose.connection.once("open", () => {
     console.log("connected to database");
 });
+app.use(cors());
 app.use(
     "/graphql",
     graphqlHTPP({
