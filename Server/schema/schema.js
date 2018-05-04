@@ -17,12 +17,12 @@ const PostType = new GraphQLObjectType({
     name: "Post",
     fields: () => ({
         id: {
-            type: GraphQLID
+            type: new GraphQLNonNull(GraphQLID)
         },
-        content: { type: GraphQLString },
-        date: { type: GraphQLString },
+        content: { type: new GraphQLNonNull(GraphQLString) },
+        date: { type: new GraphQLNonNull(GraphQLString) },
         author: {
-            type: UserType,
+            type: new GraphQLNonNull(UserType),
             resolve(parent, args) {
                 return User.findById(parent.authorId);
             }
@@ -36,8 +36,8 @@ const UserType = new GraphQLObjectType({
         id: {
             type: GraphQLID
         },
-        name: { type: GraphQLString },
-        avatar: { type: GraphQLString },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        avatar: { type: new GraphQLNonNull(GraphQLString) },
         posts: {
             type: new GraphQLList(PostType),
             resolve(parent, args) {
@@ -51,7 +51,7 @@ const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
     fields: {
         post: {
-            type: PostType,
+            type: new GraphQLNonNull(PostType),
             args: {
                 id: { type: GraphQLID }
             },
@@ -60,7 +60,7 @@ const RootQuery = new GraphQLObjectType({
             }
         },
         user: {
-            type: UserType,
+            type: new GraphQLNonNull(UserType),
             args: {
                 id: {
                     type: GraphQLID

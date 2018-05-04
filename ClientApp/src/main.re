@@ -2,12 +2,12 @@ let component = ReasonReact.statelessComponent("Main");
 
 let str = ReasonReact.stringToElement;
 
-let make = _children => {
+let make = (~avatar, _children) => {
   ...component,
   render: _self => {
     let message =
       Post.{
-        avatar: "avatar",
+        avatar,
         data: {
           date: "Today, 5 minutes ago",
           content: "Hello world! How are you doing?"

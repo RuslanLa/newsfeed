@@ -5,13 +5,6 @@ let component = ReasonReact.statelessComponent("App");
 let make = (~message, _children) => {
   ...component,
   render: _self => {
-    let person =
-      User.{
-        name: "Ruslan Latypov",
-        messagesCount: 3000,
-        followsCount: 300,
-        followersCount: 400
-      };
     let menu = [|
       Menuitem.{title: "Profile", href: ""},
       Menuitem.{title: "Feed", href: ""},
@@ -27,13 +20,21 @@ let make = (~message, _children) => {
              | Loading => <div> (ReasonReact.stringToElement("Loading")) </div>
              | Error(error) => <div />
              | Data(response) =>
+               let name = response##user##name;
+               let person =
+                 User.{
+                   name,
+                   messagesCount: 3000,
+                   followsCount: 300,
+                   followersCount: 400
+                 };
                <div>
                  <Header />
                  <Aside person />
                  <Navbar items=menu />
-                 <Main />
+                 <Main avatar=response##user##avatar />
                  <Footer />
-               </div>
+               </div>;
              }
          )
     </Postsrepo.GetPostsQuery>;
