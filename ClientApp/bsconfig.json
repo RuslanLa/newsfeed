@@ -2,6 +2,7 @@
     "name": "reason-scripts",
     "sources": ["src"],
     "bs-dependencies": ["reason-react", "reason-apollo", "bs-jest"],
+    "generate-merlin": true,
     "ppx-flags": ["graphql_ppx/ppx"],
     "reason": {
         "react-jsx": 2

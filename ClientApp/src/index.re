@@ -8,7 +8,9 @@
 external register_service_worker : unit => unit = "default";
 
 ReactDOMRe.renderToElementWithId(
-  <App message="Welcome to React and Reason" />,
+  <ReasonApollo.Provider client=Client.instance>
+    <App message="Welcome to React and Reason" />
+  </ReasonApollo.Provider>,
   "root"
 );
 

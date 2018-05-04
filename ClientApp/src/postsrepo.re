@@ -1,6 +1,6 @@
 module GetPosts = [%graphql
   {|
-    query getPosts($id: String!){
+    query getPosts($id: ID!){
         user(id: $id) {
           name,
           posts {
