@@ -11,7 +11,7 @@ let make = (~message, _children) => {
       Menuitem.{title: "Logout", href: ""}
     |];
     let postsQuery =
-      Postsrepo.GetPosts.make(~id="5ae859ee74654c100c675f5b", ());
+      Postsrepo.GetPosts.make(~id="5ae8597d1a1e470158163421", ());
     <Postsrepo.GetPostsQuery variables=postsQuery##variables>
       ...(
            ({result}) =>

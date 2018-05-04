@@ -269,16 +269,10 @@ ul.socialicons li a.instagram:hovser {
     display: block;
     width: 100%;
 }
-#root section .new-message textarea:focus {
-    line-height: 3;
-}
 
-#root section .new-message textarea:focus + button {
-    display: block;
-}
-
-#root section .new-message textarea:not(:focus) + button {
-    display: none;
+#root section .new-message textarea {
+    line-height: 10px;
+    padding: 10px;
 }
 
 button.rnd-btn {

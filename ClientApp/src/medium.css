@@ -23,10 +23,14 @@
             grid-template-columns: 60px 8fr;
             grid-template-rows: 30px 1fr;
         }
+        #root section .new-message.focused {
+            grid-template-rows: 30px 1fr 10px 40px;
+        }
+
         #root section .new-message {
             display: grid;
             grid-template-columns: 60px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-            grid-template-rows: 30px 1fr 10px 40px;
+            grid-template-rows: 30px 1fr 10px;
         }
         #root section .new-message textarea {
             grid-row: 1/3;
