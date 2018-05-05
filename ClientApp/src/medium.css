@@ -20,7 +20,7 @@
         }
         #root section .message {
             display: grid;
-            grid-template-columns: 60px 8fr;
+            grid-template-columns: 80px 8fr;
             grid-template-rows: 30px 1fr;
         }
         #root section .new-message.focused {
@@ -29,7 +29,7 @@
 
         #root section .new-message {
             display: grid;
-            grid-template-columns: 60px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 80px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
             grid-template-rows: 30px 1fr 10px;
         }
         #root section .new-message textarea {

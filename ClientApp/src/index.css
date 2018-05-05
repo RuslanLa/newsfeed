@@ -179,6 +179,7 @@ header .icons {
     border: 1px solid white;
     border-radius: 15px;
     margin-bottom: 5px;
+    max-width: 70px;
 }
 
 #root section .message time {
