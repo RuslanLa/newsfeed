@@ -1,1 +1,1 @@
-let getAvatar = name => "./imgs/" ++ name ++ ".jpg";
+let getAvatar = name => name;
