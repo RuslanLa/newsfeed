@@ -25,7 +25,11 @@ let make = (~avatar, _children) => {
       mutation /* Mutation to call */, 
       _ /* Result of your mutation */
     ) => {
-        <div className=className>
+        <div className=className onBlur= (_event =>{
+          if(self.state.message === ""){
+            self.send(UnFocus);
+          }
+        })>
       <img className="avatar" src=(File.getAvatar(avatar)) />
       <textarea
         placeholder="Enter new message here"
@@ -39,6 +43,7 @@ let make = (~avatar, _children) => {
         mutation(~variables=newPost##variables, ~refetchQueries=[|"getPosts"|], 
         ()) |> ignore;
         self.send(TextChange(""));
+        self.send(UnFocus);
       })> (str("Send")) </button>:<div/>)
     </div>
     })
