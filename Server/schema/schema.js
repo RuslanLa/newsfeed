@@ -41,7 +41,7 @@ const UserType = new GraphQLObjectType({
         posts: {
             type: new GraphQLList(PostType),
             resolve(parent, args) {
-                return Post.find({ authorId: parent.id });
+                return Post.find({ authorId: parent.id }).sort("-date");
             }
         }
     })
