@@ -6,7 +6,8 @@ const {
     GraphQLSchema,
     GraphQLID,
     GraphQLList,
-    GraphQLNonNull
+    GraphQLNonNull,
+    GraphQLInt
 } = graphql;
 const _ = require("lodash");
 
@@ -42,6 +43,35 @@ const UserType = new GraphQLObjectType({
             type: new GraphQLList(PostType),
             resolve(parent, args) {
                 return Post.find({ authorId: parent.id }).sort("-date");
+            }
+        },
+        followersCount: {
+            type: new GraphQLNonNull(GraphQLInt),
+            resolve(parent, args) {
+                return User.count({ follows: parent.id });
+            }
+        },
+        feed: {
+            type: new GraphQLList(PostType),
+            resolve(parent, args) {
+                return Post.find({
+                    authorId: { $in: parent.follows }
+                }).sort("-date");
+            }
+        },
+        follows: { type: new GraphQLList(GraphQLID) },
+        followsCount: {
+            type: new GraphQLNonNull(GraphQLInt),
+            resolve(parent, args) {
+                return parent.follows.length;
+            }
+        },
+        followsUsers: {
+            type: new GraphQLList(UserType),
+            resolve(parent, args) {
+                return User.find({
+                    _id: { $in: parent.follows }
+                });
             }
         }
     })
@@ -116,6 +146,20 @@ const Mutation = new GraphQLObjectType({
                     date: new Date()
                 });
                 return post.save();
+            }
+        },
+        follow: {
+            type: UserType,
+            args: {
+                follower: { type: new GraphQLNonNull(GraphQLID) },
+                user: { type: new GraphQLNonNull(GraphQLID) }
+            },
+            resolve(parent, args) {
+                return User.findByIdAndUpdate(
+                    args.follower,
+                    { $push: { follows: args.user } },
+                    { new: true, upsert: true }
+                );
             }
         }
     }
