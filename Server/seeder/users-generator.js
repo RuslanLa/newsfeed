@@ -3,6 +3,7 @@ const faker = require("faker");
 const connect = require("../db-connection");
 const User = require("../models/user");
 const Post = require("../models/post");
+var ObjectId = require("mongoose").Types.ObjectId;
 
 Array.prototype.flatMap = function(lambda) {
     return Array.prototype.concat.apply([], this.map(lambda));
@@ -76,8 +77,14 @@ const insertUsersAndFillFollows = async count => {
         follows: randomFollows(id, ids, 100)
     }));
     console.log("follows are mapped");
-    usersWithFollows.forEach(user => {
-        User.findByIdAndUpdate(user.id, { follows: user.follows });
+    usersWithFollows.forEach(async user => {
+        await User.findByIdAndUpdate(
+            new ObjectId(user.id),
+            {
+                follows: user.follows
+            },
+            { upsert: false }
+        ).exec();
     });
     console.log("follows are inserted");
     return ids;
