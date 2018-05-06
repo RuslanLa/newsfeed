@@ -4,6 +4,8 @@ module GetPosts = [%graphql
         user(id: $id) {
           name,
           avatar,
+          followsCount,
+          followersCount,
           posts {
             content,
             date
