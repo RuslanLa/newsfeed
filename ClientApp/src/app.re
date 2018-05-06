@@ -11,7 +11,7 @@ let make = (~message, _children) => {
       Menuitem.{title: "Logout", href: ""}
     |];
     let postsQuery =
-      Postsrepo.GetPosts.make(~id="5aeda07af5e4ab344917b9b1", ());
+      Postsrepo.GetPosts.make(~id="5aeedb4fbeac2104ed999c46", ());
     <Postsrepo.GetPostsQuery variables=postsQuery##variables>
       ...(
            ({result}) =>
@@ -25,8 +25,8 @@ let make = (~message, _children) => {
                  User.{
                    name,
                    messagesCount: 3000,
-                   followsCount: 300,
-                   followersCount: 400
+                   followsCount: response##user##followsCount,
+                   followersCount: response##user##followersCount
                  };
                let main =
                  switch response##user##posts {
