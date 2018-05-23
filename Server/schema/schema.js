@@ -1,4 +1,8 @@
 const graphql = require("graphql");
+const { PubSub, withFilter } = require("graphql-subscriptions");
+
+const pubSub = new PubSub();
+const MESSAGE_WAS_ADDED_TOPIC = "newMessage";
 
 const {
     GraphQLObjectType,
@@ -7,7 +11,8 @@ const {
     GraphQLID,
     GraphQLList,
     GraphQLNonNull,
-    GraphQLInt
+    GraphQLInt,
+    GraphQLBoolean
 } = graphql;
 const _ = require("lodash");
 
@@ -139,13 +144,15 @@ const Mutation = new GraphQLObjectType({
                 content: { type: new GraphQLNonNull(GraphQLString) },
                 authorId: { type: new GraphQLNonNull(GraphQLID) }
             },
-            resolve(parent, args) {
+            async resolve(parent, args) {
                 let post = new Post({
                     content: args.content,
                     authorId: args.authorId,
                     date: new Date()
                 });
-                return post.save();
+                post = await post.save();
+                pubSub.publish(getMessageAddedTopic(args.authorId), post);
+                return post;
             }
         },
         follow: {
@@ -165,7 +172,23 @@ const Mutation = new GraphQLObjectType({
     }
 });
 
+const Subscription = new GraphQLObjectType({
+    name: "Subscription",
+    fields: {
+        messageAdded: {
+            type: GraphQLBoolean,
+            subscribe: withFilter(
+                () => pubSub.asyncIterator(MESSAGE_WAS_ADDED_TOPIC),
+                (payload, variables) => {
+                    return (payload.authorId = variables.authorId);
+                }
+            )
+        }
+    }
+});
+
 module.exports = new GraphQLSchema({
     query: RootQuery,
-    mutation: Mutation
+    mutation: Mutation,
+    subscription: Subscription
 });
