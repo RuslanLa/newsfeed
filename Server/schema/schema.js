@@ -151,7 +151,7 @@ const Mutation = new GraphQLObjectType({
                     date: new Date()
                 });
                 post = await post.save();
-                pubSub.publish(getMessageAddedTopic(args.authorId), post);
+                pubSub.publish(MESSAGE_WAS_ADDED_TOPIC, post);
                 return post;
             }
         },
