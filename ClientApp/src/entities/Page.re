@@ -17,10 +17,10 @@ type pageResponse =
 
 let fromUserPostsQuery = response =>
   switch response {
-  | PostsRepository.GetPostsQuery.NoData =>
-    Status({message: "No response", isError: true})
-  | Loading => Status({message: "Loading", isError: false})
-  | Error(error: ReasonApolloTypes.apolloError) => Status({message: "Error has happened", isError: true})
+  | PostsRepository.GetPostsQuery.Loading =>
+    Status({message: "Loading", isError: false})
+  | Error((error: ReasonApolloTypes.apolloError)) =>
+    Status({message: "Error has happened", isError: true})
   | Data(response) =>
     let name = response##user##name;
     let person =
@@ -36,13 +36,9 @@ let fromUserPostsQuery = response =>
       Menuitem.{title: "Feed", href: ""},
       Menuitem.{title: "Logout", href: ""}
     |];
-      switch response##user##posts {
-      | None => Status({message: "Error happened", isError: true})
-      | Some(posts) =>OK(
-        {
-          menu,
-          person,
-          posts: Array.map(p => Post.fromJsObj(p), posts)
-        });
-      };
+    switch response##user##posts {
+    | None => Status({message: "Error happened", isError: true})
+    | Some(posts) =>
+      OK({menu, person, posts: Array.map(p => Post.fromJsObj(p), posts)})
+    };
   };
