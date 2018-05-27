@@ -1,3 +1,8 @@
+[@bs.module "apollo-utilities"]
+external getMainDefinition :
+  ReasonApolloTypes.documentNode => ReasonApolloTypes.operationDefinitionNode =
+  "getMainDefinition" /* Bind the getMainDefinition  method */;
+
 let getNonEmptyObj = jsObj =>
   switch (jsObj |> Js.Nullable.toOption) {
   | None => None

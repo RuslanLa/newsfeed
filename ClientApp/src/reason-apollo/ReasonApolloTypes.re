@@ -20,9 +20,8 @@ type apolloLink;
  */
 type apolloCache;
 
-type networkError = {. "statusCode": int};
+type networkError = {. "statusCode": int} /* TODO: define missing keys */;
 
-/* TODO: define missing keys */
 type apolloLinkErrorResponse = {. "networkError": option(networkError)};
 
 module type Config = {let query: string; type t; let parse: Js.Json.t => t;};
@@ -32,7 +31,7 @@ type graphqlError = {
   "message": string,
   "locations": Js.Nullable.t(array(string)),
   "path": Js.Nullable.t(array(string)),
-  "nodes": Js.Nullable.t(array(string)),
+  "nodes": Js.Nullable.t(array(string))
 };
 
 type apolloError = {
@@ -49,5 +48,11 @@ type apolloOptions = {
 };
 
 type documentNode;
+
+type operationDefinitionNode = {
+  .
+  "operation": string,
+  "kind": string
+};
 
 type operation = {. "query": documentNode};
