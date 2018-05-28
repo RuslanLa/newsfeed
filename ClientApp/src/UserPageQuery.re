@@ -6,7 +6,7 @@ let str = ReasonReact.stringToElement;
 
 let subscribe = [%raw
   {|
-  function(subscribeToMore){
+  function(subscribeToMore, refetch){
     subscribeToMore(
                {
                  document: gql`subscription messageAdded($userId: ID!){
@@ -20,18 +20,7 @@ let subscribe = [%raw
                    "userId": "5aeedb4fbeac2104ed999c46"
                  },
                  updateQuery: (prev, cur) => {
-                   console.log("UPDATE!!!!!!!!!!!", prev, cur);
-                   let user = Object.assign({}, prev.user);
-                   user.posts = user.posts.concat([]);
-                   if(user.posts.find(u=>u.id==cur.subscriptionData.data.messageAdded.id)){
-                     return prev;
-                   }
-                   user.posts = [cur.subscriptionData.data.messageAdded].concat(prev.user.posts);
-                   console.log(">>>>>>>", user);
-                   let result = Object.assign({}, prev);
-                   result.user = user;
-                   console.log(result);
-                   return result;
+                  refetch();
                  }
                });
               }
@@ -45,8 +34,8 @@ let make = (~items=?, _children) => {
       PostsRepository.GetPosts.make(~id="5aeedb4fbeac2104ed999c46", ());
     <PostsRepository.GetPostsQuery variables=postsQuery##variables>
       ...(
-           ({result, subscribeToMore}) => {
-             subscribe(subscribeToMore);
+           ({result, subscribeToMore, refetch}) => {
+             subscribe(subscribeToMore, refetch);
              _children(Page.fromUserPostsQuery(result));
            }
          )
