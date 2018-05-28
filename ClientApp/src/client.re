@@ -14,8 +14,8 @@ let link =
       Js.log(definition##operation === "subscription");
       definition##operation === "subscription";
     },
-    httpLink,
-    wsLink
+    wsLink,
+    httpLink
   );
 
 let instance =

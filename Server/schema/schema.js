@@ -151,7 +151,8 @@ const Mutation = new GraphQLObjectType({
                     date: new Date()
                 });
                 post = await post.save();
-                pubSub.publish(MESSAGE_WAS_ADDED_TOPIC, post);
+                console.log("POST: ", post);
+                pubSub.publish(MESSAGE_WAS_ADDED_TOPIC, { messageAdded: post});
                 return post;
             }
         },
@@ -176,11 +177,16 @@ const Subscription = new GraphQLObjectType({
     name: "Subscription",
     fields: {
         messageAdded: {
-            type: GraphQLBoolean,
+            type: PostType,
+            args: {
+                userId: {type: new GraphQLNonNull(GraphQLID)}
+            },
             subscribe: withFilter(
                 () => pubSub.asyncIterator(MESSAGE_WAS_ADDED_TOPIC),
                 (payload, variables) => {
-                    return (payload.authorId = variables.authorId);
+                    console.log(">>>Subscription", payload, variables);
+                    console.log(`will be sent ${payload.userId == variables.authorId}`)
+                    return payload.userId === variables.authorId;
                 }
             )
         }

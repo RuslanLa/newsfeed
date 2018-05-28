@@ -4,10 +4,16 @@ module Get = (Config: ReasonApolloTypes.Config) => {
   [@bs.module] external gql : ReasonApolloTypes.gql = "graphql-tag";
   [@bs.module "react-apollo"]
   external queryComponent : ReasonReact.reactClass = "Query";
-  type response =
+  type response = 
     | Loading
     | Error(apolloError)
     | Data(Config.t);
+  type subscriptionDetails = {
+    .
+    "document": queryString, 
+    "variables": Js.Json.t, 
+    "updateQuery": (~prev: Config.t, Js.Json.t)=>Js.Promise.t(unit)
+  };
   type renderPropObj = {
     result: response,
     data: option(Config.t),
@@ -15,6 +21,7 @@ module Get = (Config: ReasonApolloTypes.Config) => {
     loading: bool,
     refetch: option(Js.Json.t) => Js.Promise.t(response),
     fetchMore: (~variables: Js.Json.t) => Js.Promise.t(unit),
+    subscribeToMore: subscriptionDetails=>Js.Json.t,
     networkStatus: int,
   };
   type renderPropObjJS = {
@@ -29,6 +36,7 @@ module Get = (Config: ReasonApolloTypes.Config) => {
     "networkStatus": int,
     "variables": Js.Null_undefined.t(Js.Json.t),
     "fetchMore": [@bs.meth] (apolloOptions => Js.Promise.t(unit)),
+    "subscribeToMore": subscriptionDetails => Js.Json.t
   };
   let graphqlQueryAST = gql(. Config.query);
   let apolloDataToVariant: renderPropObjJS => response =
@@ -76,6 +84,7 @@ module Get = (Config: ReasonApolloTypes.Config) => {
         "query": graphqlQueryAST,
       }),
     networkStatus: apolloData##networkStatus,
+    subscribeToMore: apolloData##subscribeToMore
   };
   let make =
       (
