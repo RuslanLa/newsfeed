@@ -36,15 +36,14 @@ app.use('*', cors(`http:/localhost:${PORT}`));
 app.use(
     "/graphql",
     bodyParser.json(),
-    graphqlExpress({
+    passport.authenticate('jwt', { session: false }), graphqlExpress({
         schema
-    })
-);
+    }));
 
 app.use(
     "/graphiql",
     graphiqlExpress({
-        endpointURL: "/graphql",
+        endpointURL: "/graphql?auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViMTE2NTgwMDQ5NGUyMzdmMDJmMjg5MSIsImlhdCI6MTUyNzg2Njk0Mn0.z664_eRec_TLk23XQYa3lTvxibNx4zsXmE79cLrkacQ&",
         subscriptionsEndpoint: `ws://localhost:${PORT}/graphql`
     })
 );
