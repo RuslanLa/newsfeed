@@ -18,8 +18,11 @@
     "faker": "^4.1.0",
     "graphql": "^0.13.2",
     "graphql-subscriptions": "^0.5.8",
+    "jsonwebtoken": "^8.2.2",
     "lodash": "^4.17.10",
     "mongoose": "^5.0.17",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "subscriptions-transport-ws": "^0.9.9"
   }
 }
