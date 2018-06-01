@@ -4,22 +4,25 @@ const connect = require("../db-connection");
 const User = require("../models/user");
 const Post = require("../models/post");
 var ObjectId = require("mongoose").Types.ObjectId;
+const bcrypt = require('bcrypt');
 
-Array.prototype.flatMap = function(lambda) {
+const pass = bcrypt.hashSync("password", 10);
+Array.prototype.flatMap = function (lambda) {
     return Array.prototype.concat.apply([], this.map(lambda));
 };
-casual.define("user", function() {
+casual.define("user", function () {
     return {
         name: casual.username,
-        avatar: faker.image.avatar()
+        avatar: faker.image.avatar(),
+        password: pass
     };
 });
 
-casual.define("users", function(count) {
+casual.define("users", function (count) {
     return Array.from({ length: count }, (x, i) => casual.user);
 });
 
-casual.define("post", function(authorId) {
+casual.define("post", function (authorId) {
     return {
         authorId,
         date: faker.date.past(),
@@ -28,7 +31,7 @@ casual.define("post", function(authorId) {
         )
     };
 });
-casual.define("posts", function(authorId, minCount, maxCount) {
+casual.define("posts", function (authorId, minCount, maxCount) {
     return Array.from(
         {
             length: Math.floor(

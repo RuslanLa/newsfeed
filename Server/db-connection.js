@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
-module.exports = function() {
+const { connectionString } = require("./private-config");
+module.exports = function () {
     mongoose.connect(
-        "mongodb://ruslan:test123@ds163119.mlab.com:63119/newsfeed"
+        connectionString
     );
     mongoose.connection.once("open", () => {
         console.log("connected to database");

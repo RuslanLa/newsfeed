@@ -4,3 +4,4 @@ Server/node_modules/
 */.merlin
 */node_modules/*
 */lib/*
+Server/private-config.js

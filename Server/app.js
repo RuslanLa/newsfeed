@@ -12,18 +12,17 @@ const { execute, subscribe } = require("graphql");
 const bodyParser = require("body-parser");
 const { passport } = require("./passport-config");
 const { authorizeUser } = require("./auth");
+const connect = require("./db-connection");
+
 // parse application/x-www-form-urlencoded
 // for easier testing with Postman or plain HTML forms
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 const PORT = 4000;
-mongoose.connect("mongodb://ruslan:test123@ds163119.mlab.com:63119/newsfeed");
-mongoose.connection.once("open", () => {
-    console.log("connected to database");
-});
+connect();
 app.use(passport.initialize());
-app.post("/login", async function (req, res) {
+app.post("/login", bodyParser.json(), async function (req, res) {
     const name = ((req || {}).body || {}).name;
     const password = ((req || {}).body || {}).password;
     const token = await authorizeUser(name, password);

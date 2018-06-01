@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server-express": "^1.3.6",
+    "bcrypt": "^2.0.1",
     "casual": "^1.5.19",
     "chalk": "^2.4.1",
     "cors": "^2.8.4",
