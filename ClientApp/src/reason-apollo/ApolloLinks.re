@@ -30,6 +30,8 @@ external split :
   apolloLink =
   "split" /* Bind the split method */;
 
+  [@bs.send] external concat : (ReasonApolloTypes.apolloLink, ReasonApolloTypes.apolloLink) => ReasonApolloTypes.apolloLink = "concat";
+
 /**
  * CreateHttpLink
  * https://github.com/apollographql/apollo-link/tree/master/packages/apollo-link-http
@@ -79,3 +81,4 @@ let createContextLink = contextHandler =>
 let createErrorLink = errorHandler =>
   /* Instanciate a new error link object */
   apolloLinkOnError(errorHandler);
+  

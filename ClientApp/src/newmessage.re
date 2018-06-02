@@ -61,7 +61,7 @@ let make = (~avatar, _children) => {
                          let newPost =
                            PostsRepository.AddPost.make(
                              ~content=self.state.message,
-                             ~authorId="5aeedb4fbeac2104ed999c46",
+                             ~authorId="5b1165800494e237f02f2891",
                              ()
                            );
                          mutation(

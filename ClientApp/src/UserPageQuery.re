@@ -31,7 +31,7 @@ let make = (~items=?, _children) => {
   ...component,
   render: _self => {
     let postsQuery =
-      PostsRepository.GetPosts.make(~id="5aeedb4fbeac2104ed999c46", ());
+      PostsRepository.GetPosts.make(~id="5b1165800494e237f02f2891", ());
     <PostsRepository.GetPostsQuery variables=postsQuery##variables>
       ...(
            ({result, subscribeToMore, refetch}) => {
