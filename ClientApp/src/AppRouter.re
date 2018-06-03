@@ -31,6 +31,6 @@ let make = (_children) => {
   },
   render: self => switch (self.state.route) {
     | UserPage(id) => <App />
-    | Login => <div> (str("Hello world"))</div>
+    | Login => <LoginForm />
   }
 };

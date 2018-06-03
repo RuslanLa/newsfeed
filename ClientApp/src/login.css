@@ -1,0 +1,36 @@
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    flex-direction: column;
+}
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 300px;
+}
+
+.form-group label {
+    flex: 1;
+}
+.form-group input {
+    flex: 2;
+}
+
+.login-form .form-group {
+    flex: 1 1;
+    max-height: 40px;
+}
+
+.login-form button {
+    flex: 1 1;
+    max-height: 30px;
+    background-color: var(--main-color);
+    color: var(--font-color);
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 0px;
+    width: 300px;
+}
