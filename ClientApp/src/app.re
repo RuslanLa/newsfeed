@@ -15,7 +15,7 @@ let fromPageResponse = (pageData: Page.pageResponse) =>
     </div>
   };
 
-let make = (~message, _children) => {
+let make = (_children) => {
   ...component,
   render: _self => <UserPageQuery> ...fromPageResponse </UserPageQuery>
 };
