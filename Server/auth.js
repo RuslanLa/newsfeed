@@ -13,7 +13,7 @@ async function authorize(name, password) {
     if (bcrypt.compareSync(password, user.password)) {
         const payload = { id: user.id };
         const token = jwt.sign(payload, jwtOptions.secretOrKey);
-        return token;
+        return { token: token, id: user.id };
     }
 }
 

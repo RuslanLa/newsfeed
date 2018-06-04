@@ -4,6 +4,8 @@
     align-items: center;
     min-height: 60vh;
     flex-direction: column;
+    border: 3px solid var(--main-color);
+    box-shadow: 2px 5px 10px 5px var(--font-color);
 }
 .form-group {
     display: flex;

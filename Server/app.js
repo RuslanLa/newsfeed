@@ -22,17 +22,17 @@ app.use(bodyParser.urlencoded({
 const PORT = 4000;
 connect();
 app.use(passport.initialize());
+app.use('*', cors(`http:/localhost:${PORT}`));
 app.post("/login", bodyParser.json(), async function (req, res) {
     const name = ((req || {}).body || {}).name;
     const password = ((req || {}).body || {}).password;
-    const token = await authorizeUser(name, password);
+    const { token, id } = (await authorizeUser(name, password)) || {};
     if (!token) {
         res.status(401).json({ message: "passwords did not match" });
         return;
     }
-    res.json({ message: "ok", token: token });
+    res.json({ message: "ok", token: token, id: id });
 });
-app.use('*', cors(`http:/localhost:${PORT}`));
 app.use(
     "/graphql",
     bodyParser.json(),

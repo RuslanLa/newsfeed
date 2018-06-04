@@ -1,7 +1,7 @@
 {
     "name": "reason-scripts",
     "sources": [{ "dir": "src", "subdirs": true }],
-    "bs-dependencies": ["reason-react", "bs-jest"],
+    "bs-dependencies": ["reason-react", "bs-jest", "bs-fetch", "bs-json"],
     "generate-merlin": true,
     "ppx-flags": ["graphql_ppx/ppx"],
     "reason": {

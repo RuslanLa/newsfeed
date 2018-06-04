@@ -2,9 +2,9 @@
 let inMemoryCache = ApolloInMemoryCache.createInMemoryCache() /* Create an HTTP Link */;
 
 let httpLink =
-  ApolloLinks.createHttpLink(~uri="http://localhost:4000/graphql", ());
+  ApolloLinks.createHttpLink(~uri=Url.Consts.graphqlHttp, ());
 
-let wsLink = ApolloLinks.createWsLink(~uri="ws://localhost:4000/graphql", ());
+let wsLink = ApolloLinks.createWsLink(~uri=Url.Consts.graphqlWs, ());
 let contextHandler = () =>
   switch (Dom.Storage.(localStorage |> getItem("token"))) {
     | None =>{
