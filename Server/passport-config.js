@@ -11,13 +11,13 @@ jwtOptions.jwtFromRequest = ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeader
 jwtOptions.secretOrKey = 'tasmanianDevil';
 
 var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
-    console.log('payload received', jwt_payload);
-    const user = User.findById(jwt_payload.id);
-    if (user) {
-        next(null, user);
-    } else {
+    User.findById(jwt_payload.id, (err, user) => {
+        if (user) {
+            next(null, user);
+            return;
+        }
         next(null, false);
-    }
+    });
 });
 
 passport.use(strategy);

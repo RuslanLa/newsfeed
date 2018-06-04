@@ -1,6 +1,6 @@
 [%bs.raw {|require('./app.css')|}];
 
-let component = ReasonReact.statelessComponent("App");
+let component = ReasonReact.statelessComponent("UserPage");
 
 let fromPageResponse = (pageData: Page.pageResponse) =>
   switch pageData {
@@ -15,7 +15,7 @@ let fromPageResponse = (pageData: Page.pageResponse) =>
     </div>
   };
 
-let make = (_children) => {
+let make = (~userId: option(string), _children) => {
   ...component,
-  render: _self => <UserPageQuery> ...fromPageResponse </UserPageQuery>
+  render: _self => <UserPageQuery userId> ...fromPageResponse </UserPageQuery>
 };

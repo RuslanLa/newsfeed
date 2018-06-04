@@ -36,9 +36,7 @@ app.post("/login", bodyParser.json(), async function (req, res) {
 app.use(
     "/graphql",
     bodyParser.json(),
-    passport.authenticate('jwt', { session: false }), graphqlExpress({
-        schema
-    }));
+    passport.authenticate('jwt', { session: false }), graphqlExpress((req) => ({ context: req.user, schema: schema })));
 
 app.use(
     "/graphiql",

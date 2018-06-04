@@ -3,7 +3,7 @@ let str = ReasonReact.stringToElement;
 
 type route =
   | Login
-  | UserPage(string);
+  | UserPage(option(string));
 
 type action =
   | ChangeRoute(route);
@@ -12,8 +12,8 @@ type state = {route: route};
 let component = ReasonReact.reducerComponent("AppRouter");
 
 let resolveRoute = (url) =>  switch (url, Dom.Storage.(localStorage |> getItem("token"))) {
-    | ([], Some(id)) => UserPage(id)
-    | (["user", id], Some(userId)) => UserPage(id)
+    | ([], Some(token)) => UserPage(None)
+    | (["user", id], Some(userId)) => UserPage(Some(id))
     | (["login"], None) => Login
     | ([], None) => Login
     };
@@ -30,7 +30,7 @@ let make = (_children) => {
       ReasonReact.Update({ route: resolveRoute([])});
   },
   render: self => switch (self.state.route) {
-    | UserPage(id) => <App />
+    | UserPage(id) => <UserPage userId=id/>
     | Login => <LoginForm />
   }
 };

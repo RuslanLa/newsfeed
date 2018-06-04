@@ -101,8 +101,8 @@ const RootQuery = new GraphQLObjectType({
                     type: GraphQLID
                 }
             },
-            resolve(parent, args) {
-                return User.findById(args.id);
+            resolve(parent, args, context) {
+                return User.findById(args.id || context._id);
             }
         },
         posts: {
@@ -151,7 +151,6 @@ const Mutation = new GraphQLObjectType({
                     date: new Date()
                 });
                 post = await post.save();
-                console.log("POST: ", post);
                 pubSub.publish(MESSAGE_WAS_ADDED_TOPIC, { messageAdded: post });
                 return post;
             }
@@ -184,8 +183,6 @@ const Subscription = new GraphQLObjectType({
             subscribe: withFilter(
                 () => pubSub.asyncIterator(MESSAGE_WAS_ADDED_TOPIC),
                 (payload, variables) => {
-                    console.log(">>>Subscription", payload, variables);
-                    console.log(`will be sent ${payload.userId == variables.authorId}`)
                     return payload.userId === variables.authorId;
                 }
             )

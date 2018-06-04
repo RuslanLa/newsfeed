@@ -27,11 +27,13 @@ let subscribe = [%raw
 |}
 ];
 
-let make = (~items=?, _children) => {
+let make = (~userId, _children) => {
   ...component,
   render: _self => {
-    let postsQuery =
-      PostsRepository.GetPosts.make(~id="5b1165800494e237f02f2891", ());
+    let postsQuery = switch userId {
+    | Some(id) => PostsRepository.GetPosts.make(~id=id, ())
+    | None => PostsRepository.GetPosts.make(())
+    };
     <PostsRepository.GetPostsQuery variables=postsQuery##variables>
       ...(
            ({result, subscribeToMore, refetch}) => {
