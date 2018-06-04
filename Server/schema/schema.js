@@ -142,12 +142,12 @@ const Mutation = new GraphQLObjectType({
             type: PostType,
             args: {
                 content: { type: new GraphQLNonNull(GraphQLString) },
-                authorId: { type: new GraphQLNonNull(GraphQLID) }
+                authorId: { type: GraphQLID }
             },
-            async resolve(parent, args) {
+            async resolve(parent, args, context) {
                 let post = new Post({
                     content: args.content,
-                    authorId: args.authorId,
+                    authorId: args.authorId || context._id,
                     date: new Date()
                 });
                 post = await post.save();

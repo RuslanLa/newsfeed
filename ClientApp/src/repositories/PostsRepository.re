@@ -23,7 +23,7 @@ module GetPostsQuery = ReasonApollo.CreateQuery(GetPosts);
 
 module AddPost = [%graphql
   {|
-  mutation addPost($content: String!, $authorId: ID!) {
+  mutation addPost($content: String!, $authorId: ID) {
     addPost(content: $content, authorId: $authorId) {
           id,
           date,

@@ -34,7 +34,7 @@ let fromUserPostsQuery = response =>
     let menu = [|
       Menuitem.{title: "Profile", href: ""},
       Menuitem.{title: "Feed", href: ""},
-      Menuitem.{title: "Logout", href: ""}
+      Menuitem.{title: "Logout", href: "/logout"}
     |];
     switch response##user##posts {
     | None => Status({message: "Error happened", isError: true})
