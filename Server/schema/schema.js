@@ -59,6 +59,7 @@ const UserType = new GraphQLObjectType({
         feed: {
             type: new GraphQLList(PostType),
             resolve(parent, args) {
+                console.log(parent.follows);
                 return Post.find({
                     authorId: { $in: parent.follows }
                 }).sort("-date");

@@ -13,13 +13,34 @@ module GetPosts = [%graphql
         }
     }
   |}
-];
-
- /* module SubscribePosts = ReasonApolloTypes.gql("subscription messageAdded($userId: ID!) { messageAdded(userId: $userId) { content }}"); */
+]; /* module SubscribePosts = ReasonApolloTypes.gql("subscription messageAdded($userId: ID!) { messageAdded(userId: $userId) { content }}"); */
 
 module GetPostsQuery = ReasonApollo.CreateQuery(GetPosts);
 
-/* module PostsSubscription = ReasonApollo.CreateSubscription(SubscribePosts); */
+module GetFeed = [%graphql
+  {|
+  query getFeed($id:ID){
+    user(id: $id) {
+      name,
+          avatar,
+          followsCount,
+          followersCount,
+          feed {
+            content,
+            date,
+            author{
+              avatar
+            }
+          }
+    }
+  }
+|}
+];
+
+module GetFeedQuery =
+  ReasonApollo.CreateQuery(
+    GetFeed
+  ); /* module PostsSubscription = ReasonApollo.CreateSubscription(SubscribePosts); */
 
 module AddPost = [%graphql
   {|
@@ -30,6 +51,7 @@ module AddPost = [%graphql
           content
       }
   }
-|}];
+|}
+];
 
 module AddPostMutation = ReasonApollo.CreateMutation(AddPost);

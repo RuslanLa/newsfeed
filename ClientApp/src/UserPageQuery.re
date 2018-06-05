@@ -27,7 +27,7 @@ let subscribe = [%raw
 |}
 ];
 
-let make = (~userId, _children) => {
+let make = (~userId, children) => {
   ...component,
   render: _self => {
     let postsQuery = switch userId {
@@ -38,7 +38,7 @@ let make = (~userId, _children) => {
       ...(
            ({result, subscribeToMore, refetch}) => {
              subscribe(subscribeToMore, refetch);
-             _children(Page.fromUserPostsQuery(result));
+             children(Page.fromUserPostsQuery(result));
            }
          )
     </PostsRepository.GetPostsQuery>;

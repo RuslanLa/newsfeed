@@ -13,3 +13,8 @@ let fromJsObj = obj =>
   | None => {date: "", content: ""}
   | Some(post) => {date: post##date, content: post##content}
   };
+let messageFromJs = obj => 
+switch obj {
+  | None => {data:{date: "", content: ""}, avatar:""}
+  | Some(post) => {data: {date: post##date, content: post##content}, avatar: post##author##avatar}
+  };

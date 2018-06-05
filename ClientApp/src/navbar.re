@@ -16,7 +16,7 @@ let make = (~items=?, _children) => {
       ReasonReact.arrayToElement(
         Array.map(
           (i: Menuitem.menuItemType) =>
-            <li> <a href=i.href onClick=click> (str(i.title)) </a> </li>,
+            <li> <Link href=i.href> ...(str(i.title)) </Link> </li>,
           switch items {
           | Some(elements) => elements
           | None => [||]
