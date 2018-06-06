@@ -40,7 +40,7 @@ const UserType = new GraphQLObjectType({
     name: "User",
     fields: () => ({
         id: {
-            type: GraphQLID
+            type: new GraphQLNonNull(GraphQLID)
         },
         name: { type: new GraphQLNonNull(GraphQLString) },
         avatar: { type: new GraphQLNonNull(GraphQLString) },
@@ -185,6 +185,22 @@ const Subscription = new GraphQLObjectType({
                 () => pubSub.asyncIterator(MESSAGE_WAS_ADDED_TOPIC),
                 (payload, variables) => {
                     return payload.userId === variables.authorId;
+                }
+            )
+        },
+        messageAddedToTheNewsFeed: {
+            type: PostType,
+            args: {
+                userId: { type: new GraphQLNonNull(GraphQLID) }
+            },
+            subscribe: withFilter(
+                () => pubSub.asyncIterator(MESSAGE_WAS_ADDED_TOPIC),
+                async (payload, variables) => {
+                    console.log(payload);
+                    console.log(variables);
+                    const user = await User.findById(payload.userId).exec();
+                    console.log(user);
+                    return user.follows.indexOf(variables.authorId) !== -1;
                 }
             )
         }

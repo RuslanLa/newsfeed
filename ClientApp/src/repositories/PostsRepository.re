@@ -3,6 +3,7 @@ module GetPosts = [%graphql
     query getPosts($id: ID){
         user(id: $id) {
           name,
+          id,
           avatar,
           followsCount,
           followersCount,
@@ -29,7 +30,8 @@ module GetFeed = [%graphql
             content,
             date,
             author{
-              avatar
+              avatar,
+              id
             }
           }
     }

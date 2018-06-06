@@ -6,7 +6,7 @@ let str = ReasonReact.stringToElement;
 
 let subscribe = [%raw
   {|
-  function(subscribeToMore, refetch){
+  function(subscribeToMore, refetch, userId){
     subscribeToMore(
                {
                  document: gql`subscription messageAdded($userId: ID!){
@@ -17,7 +17,7 @@ let subscribe = [%raw
                   }
                 }`,
                  variables: {
-                   "userId": "5aeedb4fbeac2104ed999c46"
+                   "userId": userId
                  },
                  updateQuery: (prev, cur) => {
                   refetch();
@@ -37,7 +37,7 @@ let make = (~userId, children) => {
     <PostsRepository.GetPostsQuery variables=postsQuery##variables>
       ...(
            ({result, subscribeToMore, refetch}) => {
-             subscribe(subscribeToMore, refetch);
+             subscribe(subscribeToMore, refetch, userId);
              children(Page.fromUserPostsQuery(result));
            }
          )

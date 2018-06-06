@@ -41,7 +41,11 @@ let fromUserPostsQuery = response =>
     | Some(posts) =>
       OK({menu, person, posts: MessagesBar.(UserPage(Array.map(p => Post.({
         data: fromJsObj(p), 
-        avatar: person.avatar
+        avatar: person.avatar,
+        authorId: switch(response##user##id){
+        | None => ""
+        | Some(data) => data
+        }
       }), posts), person.avatar))})
     };
   };

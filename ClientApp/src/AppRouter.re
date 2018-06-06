@@ -28,6 +28,7 @@ let resolveRoute = url => {
   | ([_], Some(token)) => NewsFeed(None)
   | ([], Some(token)) => NewsFeed(None)
   | ([_], _) => Login
+  | ([], None) => Login
   };
 };
 
