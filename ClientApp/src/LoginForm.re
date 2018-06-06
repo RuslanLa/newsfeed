@@ -59,6 +59,7 @@ let make = _children => {
       )
     | LoggedIn(data) => ReasonReact.SideEffects((self)=>{
       Dom.Storage.(localStorage |> setItem("token", data.token));
+      Dom.Storage.(localStorage |> setItem("user-id", data.id));
       ReasonReact.Router.push("/user/"++data.id);
     })
     |LoginFailed => ReasonReact.Update({...state, formState: Error})

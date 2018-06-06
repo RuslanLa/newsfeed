@@ -2,7 +2,7 @@
 
 let component = ReasonReact.statelessComponent("UserPage");
 
-let make = (~userId: option(string), _children) => {
+let make = (~userId: string, _children) => {
   ...component,
   render: _self => {
     <NewsFeedPageQuery userId> ...Content.fromPageResponse </NewsFeedPageQuery>

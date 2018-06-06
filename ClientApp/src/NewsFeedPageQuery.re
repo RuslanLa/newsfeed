@@ -31,10 +31,7 @@ let subscribe = [%raw
 let make = (~userId, _children) => {
   ...component,
   render: _self => {
-    let postsQuery = switch userId {
-    | Some(id) => PostsRepository.GetFeed.make(~id=id, ())
-    | None => PostsRepository.GetFeed.make(())
-    };
+    let postsQuery = PostsRepository.GetFeed.make(~id=userId, ());
     <PostsRepository.GetFeedQuery variables=postsQuery##variables>
       ...(
            ({result, subscribeToMore, refetch}) => {

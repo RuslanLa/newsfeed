@@ -2,8 +2,8 @@ let str = ReasonReact.stringToElement;
 
 type route =
   | Login
-  | UserPage(option(string))
-  | NewsFeed(option(string))
+  | UserPage(string)
+  | NewsFeed(string)
   | Logout;
 
 type action =
@@ -16,19 +16,22 @@ let component = ReasonReact.reducerComponent("AppRouter");
 let resolveRoute = url => {
   Js.log(">>>>>>>>>>>>>>>>>>>>>>>>>>><>>>>>>>>>>>>>>>>>>>>>>");
   Js.log(url);
-  switch (url, Dom.Storage.(localStorage |> getItem("token"))) {
-  | (["user", id], Some(token)) => UserPage(Some(id))
-  | (["login"], None) => Login
-  | (["logout"], Some(token)) =>
+  switch (
+    url,
+    Dom.Storage.(localStorage |> getItem("token")),
+    Dom.Storage.(localStorage |> getItem("user-id"))
+  ) {
+  | (["user", id], Some(token), _) => UserPage(id)
+  | (["login"], None, _) => Login
+  | (["logout"], Some(token), _) =>
     Js.log(">>>>>>>>>>>>>>>>>>>>>>>here");
     Dom.Storage.(localStorage |> removeItem("token"));
+    Dom.Storage.(localStorage |> removeItem("user-id"));
     ReasonReact.Router.push("login");
     Login;
-  | (["user"], Some(token)) => UserPage(None)
-  | ([_], Some(token)) => NewsFeed(None)
-  | ([], Some(token)) => NewsFeed(None)
-  | ([_], _) => Login
-  | ([], None) => Login
+  | (["user"], Some(token), Some(id)) => UserPage(id)
+  | (_, Some(token), Some(id)) => NewsFeed(id)
+  | (_, _, _) => Login
   };
 };
 

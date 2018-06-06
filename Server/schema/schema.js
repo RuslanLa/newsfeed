@@ -59,10 +59,9 @@ const UserType = new GraphQLObjectType({
         feed: {
             type: new GraphQLList(PostType),
             resolve(parent, args) {
-                console.log(parent.follows);
                 return Post.find({
                     authorId: { $in: parent.follows }
-                }).sort("-date");
+                }).sort("-date").limit(15);
             }
         },
         follows: { type: new GraphQLList(GraphQLID) },
@@ -196,11 +195,8 @@ const Subscription = new GraphQLObjectType({
             subscribe: withFilter(
                 () => pubSub.asyncIterator(MESSAGE_WAS_ADDED_TOPIC),
                 async (payload, variables) => {
-                    console.log(payload);
-                    console.log(variables);
-                    const user = await User.findById(payload.userId).exec();
-                    console.log(user);
-                    return user.follows.indexOf(variables.authorId) !== -1;
+                    const user = await User.findById(variables.userId).exec();
+                    return user.follows.indexOf(((payload || {}).messageAdded || {}).authorId) !== -1;
                 }
             )
         }
