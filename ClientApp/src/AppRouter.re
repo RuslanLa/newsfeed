@@ -54,11 +54,14 @@ let make = _children => {
       route: resolveRoute(ReasonReact.Router.dangerouslyGetInitialUrl().path)
     });
   },
-  render: self =>
-    switch self.state.route {
-    | UserPage(id) => <UserPage userId=id />
-    | NewsFeed(id) => <NewsFeed userId=id />
-    | Search => <SearchResult />
-    | Login => <LoginForm />
-    }
+  render: self => {
+    let content =
+      switch self.state.route {
+      | UserPage(id) => <UserPage userId=id />
+      | NewsFeed(id) => <NewsFeed userId=id />
+      | Search => <SearchResult />
+      | Login => <LoginForm />
+      };
+    <div> <Header /> (content) <Footer /> </div>;
+  }
 };

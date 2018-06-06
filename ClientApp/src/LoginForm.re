@@ -8,6 +8,7 @@ type action =
   | Send
   | LoggedIn(loginResponse)
   | LoginFailed;
+
 type formState =
   | Sending
   | Success
@@ -28,19 +29,17 @@ let textFromEvent = event => ReactDOMRe.domElementToObj(
                                ReactEventRe.Form.target(event)
                              )##value;
 
-let sendLoginRequest = (send, data: userInfo) => {
+let sendLoginRequest = (send, data: userInfo) =>
   Js.Promise.(
-              sendLogin(data)
-              |> then_(result =>
-                   switch (result) {
-                   | Some(loginResponse) =>
-                      resolve(send(LoggedIn(loginResponse)))
-                   | None => resolve(send(LoginFailed))
-                   }
-                 )
-              |> ignore
-            )
-};
+    sendLogin(data)
+    |> then_(result =>
+         switch result {
+         | Some(loginResponse) => resolve(send(LoggedIn(loginResponse)))
+         | None => resolve(send(LoginFailed))
+         }
+       )
+    |> ignore
+  );
 
 let make = _children => {
   ...component,
@@ -52,21 +51,28 @@ let make = _children => {
     | Send =>
       ReasonReact.UpdateWithSideEffects(
         {...state, formState: Sending},
-        (self => sendLoginRequest(self.send, {
-          login: self.state.login,
-          password: self.state.password
-        }))
+        (
+          self =>
+            sendLoginRequest(
+              self.send,
+              {login: self.state.login, password: self.state.password}
+            )
+        )
       )
-    | LoggedIn(data) => ReasonReact.SideEffects((self)=>{
-      Dom.Storage.(localStorage |> setItem("token", data.token));
-      Dom.Storage.(localStorage |> setItem("user-id", data.id));
-      ReasonReact.Router.push("/user/"++data.id);
-    })
-    |LoginFailed => ReasonReact.Update({...state, formState: Error})
+    | LoggedIn(data) =>
+      ReasonReact.SideEffects(
+        (
+          self => {
+            Dom.Storage.(localStorage |> setItem("token", data.token));
+            Dom.Storage.(localStorage |> setItem("user-id", data.id));
+            ReasonReact.Router.push("/user/" ++ data.id);
+          }
+        )
+      )
+    | LoginFailed => ReasonReact.Update({...state, formState: Error})
     },
   render: self =>
     <section>
-      <Header />
       <form className="login-form">
         <div className="form-group">
           <label htmlFor="uname"> (str("Username")) </label>
@@ -100,6 +106,5 @@ let make = _children => {
           (str("Login"))
         </button>
       </form>
-      <Footer />
     </section>
 };
