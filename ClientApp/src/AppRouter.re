@@ -10,9 +10,13 @@ type route =
   | Logout;
 
 type action =
-  | ChangeRoute(route);
+  | ChangeRoute(route)
+  | Search(string);
 
-type state = {route};
+type state = {
+  route,
+  searchCriteria: string
+};
 
 let component = ReasonReact.reducerComponent("AppRouter");
 
@@ -43,15 +47,26 @@ let make = _children => {
   ...component,
   reducer: (action: action, state: state) =>
     switch action {
-    | ChangeRoute(route) => ReasonReact.Update({route: route})
+    | ChangeRoute(route) => ReasonReact.Update({route, searchCriteria: ""})
+    | Search(name) =>
+      switch name {
+      | "" =>
+        ReasonReact.Update({
+          route:
+            resolveRoute(ReasonReact.Router.dangerouslyGetInitialUrl().path),
+          searchCriteria: ""
+        })
+      | name => ReasonReact.Update({route: Search, searchCriteria: name})
+      }
     },
-  initialState: () => {route: Login},
+  initialState: () => {route: Login, searchCriteria: ""},
   didMount: self => {
     ReasonReact.Router.watchUrl(url =>
       self.send(ChangeRoute(resolveRoute(url.path)))
     );
     ReasonReact.Update({
-      route: resolveRoute(ReasonReact.Router.dangerouslyGetInitialUrl().path)
+      route: resolveRoute(ReasonReact.Router.dangerouslyGetInitialUrl().path),
+      searchCriteria: ""
     });
   },
   render: self => {
@@ -62,6 +77,20 @@ let make = _children => {
       | Search => <SearchResult />
       | Login => <LoginForm />
       };
-    <div> <Header /> (content) <Footer /> </div>;
+    <div>
+      <Header
+        searchValue=self.state.searchCriteria
+        searchOnChange=(
+          event =>
+            self.send(
+              Search(
+                ReactDOMRe.domElementToObj(ReactEventRe.Form.target(event))##value
+              )
+            )
+        )
+      />
+      content
+      <Footer />
+    </div>;
   }
 };
