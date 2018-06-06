@@ -1,9 +1,12 @@
+[%bs.raw {|require('./app.css')|}];
+
 let str = ReasonReact.stringToElement;
 
 type route =
   | Login
   | UserPage(string)
   | NewsFeed(string)
+  | Search
   | Logout;
 
 type action =
@@ -30,6 +33,7 @@ let resolveRoute = url => {
     ReasonReact.Router.push("login");
     Login;
   | (["user"], Some(token), Some(id)) => UserPage(id)
+  | (["search"], _, _) => Search
   | (_, Some(token), Some(id)) => NewsFeed(id)
   | (_, _, _) => Login
   };
@@ -54,6 +58,7 @@ let make = _children => {
     switch self.state.route {
     | UserPage(id) => <UserPage userId=id />
     | NewsFeed(id) => <NewsFeed userId=id />
+    | Search => <SearchResult />
     | Login => <LoginForm />
     }
 };

@@ -113,8 +113,13 @@ const RootQuery = new GraphQLObjectType({
         },
         users: {
             type: new GraphQLList(UserType),
+            args: {
+                name: {
+                    type: new GraphQLNonNull(GraphQLString)
+                }
+            },
             resolve(parent, args) {
-                return User.find();
+                return User.find({ "name": new RegExp(args.name, "i") });
             }
         }
     }
