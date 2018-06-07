@@ -4,6 +4,7 @@ let str = ReasonReact.stringToElement;
 
 type messageBarSetting =
   | UserPage(array(Post.message), string)
+  | MyPage(array(Post.message), string)
   | FeedPage(array(Post.message));
 
 let make = (~messageBarInput, _children) => {
@@ -14,8 +15,13 @@ let make = (~messageBarInput, _children) => {
       switch messageBarInput {
       | UserPage(messages, avatar) => (
           mapMessages(messages),
-          <Newmessage avatar />
+          ReasonReact.nullElement
         )
+      | MyPage(messages, avatar) => 
+      (
+        mapMessages(messages),
+        <Newmessage avatar />
+      )
       | FeedPage(newsFeed) => (
           mapMessages(newsFeed),
           ReasonReact.nullElement

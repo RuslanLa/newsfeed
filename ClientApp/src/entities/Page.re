@@ -16,12 +16,12 @@ type pageResponse =
   | Status(pageStatus);
 
 let fromUserPostsQuery = response =>
-  switch response {
-  | PostsRepository.GetPostsQuery.Loading =>
+  switch (response, Dom.Storage.(localStorage |> getItem("user-id"))) {
+  | (PostsRepository.GetPostsQuery.Loading, _) =>
     Status({message: "Loading", isError: false})
-  | Error((error: ReasonApolloTypes.apolloError)) =>
+  | (Error(error: ReasonApolloTypes.apolloError), _) =>
     Status({message: "Error has happened", isError: true})
-  | Data(response) =>
+  | (Data(response), Some(userId)) =>
     let name = response##user##name;
     let person =
       User.{
@@ -36,9 +36,21 @@ let fromUserPostsQuery = response =>
       Menuitem.{title: "Feed", href: "/feed"},
       Menuitem.{title: "Logout", href: "/logout"}
     |];
-    switch response##user##posts {
-    | None => Status({message: "Error happened", isError: true})
-    | Some(posts) =>
+    switch (response##user##posts, response##user##id) {
+    | (None, _) => Status({message: "Error happened", isError: true})
+    | (Some(posts), Some(id)) =>
+    Js.log(userId);
+    Js.log(id);
+    Js.log(userId == id);
+    userId === id ?
+      OK({menu, person, posts: MessagesBar.(MyPage(Array.map(p => Post.({
+        data: fromJsObj(p), 
+        avatar: person.avatar,
+        authorId: switch(response##user##id){
+        | None => ""
+        | Some(data) => data
+        }
+      }), posts), person.avatar))}) : 
       OK({menu, person, posts: MessagesBar.(UserPage(Array.map(p => Post.({
         data: fromJsObj(p), 
         avatar: person.avatar,
