@@ -4,7 +4,7 @@ let str = ReasonReact.stringToElement;
 
 let make = (~message: Post.message, _children) => {
   let goToUserPage = (_event) =>{
-    ReasonReact.Router.push("user/"++message.authorId);
+    ReasonReact.Router.push("../user/"++message.authorId);
   };
   {
   ...component,

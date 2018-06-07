@@ -1,6 +1,6 @@
 module GetUsers= [%graphql
   {|
-    query getUsers($name: String){
+    query getUsers($name: String!){
         users(name: $name) {
           name,
           id,

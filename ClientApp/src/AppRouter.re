@@ -74,7 +74,7 @@ let make = _children => {
       switch self.state.route {
       | UserPage(id) => <UserPage userId=id />
       | NewsFeed(id) => <NewsFeed userId=id />
-      | Search => <SearchResult />
+      | Search => <SearchResult searchCriteria=self.state.searchCriteria/>
       | Login => <LoginForm />
       };
     <div>
