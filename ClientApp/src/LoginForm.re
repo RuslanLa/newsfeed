@@ -72,7 +72,6 @@ let make = _children => {
     | LoginFailed => ReasonReact.Update({...state, formState: Error})
     },
   render: self =>
-    <section>
       <form className="login-form">
         <div className="form-group">
           <label htmlFor="uname"> (str("Username")) </label>
@@ -106,5 +105,4 @@ let make = _children => {
           (str("Login"))
         </button>
       </form>
-    </section>
 };
